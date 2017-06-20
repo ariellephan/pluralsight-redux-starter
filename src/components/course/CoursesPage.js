@@ -9,29 +9,7 @@ class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
-    // this.state = {
-    //   course: {title: ""}
-    // };
-    // this.onTitleChange = this.onTitleChange.bind(this);
-    // this.onClickSave = this.onClickSave.bind(this);
-    // this.onClickDelete = this.onClickDelete.bind(this);
   }
-
-  // onTitleChange(event) {
-  //   const course = this.state.course;
-  //   course.title = event.target.value;
-  //   this.setState({course: course});
-  // }
-
-  // onClickSave(){
-  //   this.props.actions.createCourse(this.state.course);
-  // }
-  //
-  // onClickDelete(event) {
-  //   const key = event.target.dataset.key;
-  //   this.props.actions.deleteCourse(key);
-  //   console.log(this.props.courses);
-  // }
 
   courseRow(callback, course, index) {
     //debugger;
@@ -43,7 +21,7 @@ class CoursesPage extends React.Component {
   }
 
   render() {
-    //debugger;
+    //debugger; 'dont call PropTypes directly error'
     const {courses} = this.props;
     return (
       <div>

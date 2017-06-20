@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
+import toastr from 'toastr';
+
 /**
  * ManageCoursePage
  */
@@ -13,7 +15,8 @@ export class ManageCoursePage extends React.Component {
     //if course change after ajax, state won't update without componentWillReceiveProps
     this.state = {
       course: Object.assign({}, this.props.course),
-      errors: {}
+      errors: {},
+      saving: false
     };
 
     this.updateCourseState = this.updateCourseState.bind(this);
@@ -36,7 +39,14 @@ export class ManageCoursePage extends React.Component {
 
   saveCourse(event) {
     event.preventDefault();
-    this.props.actions.saveCourse(this.state.course);
+    this.setState({saving:true});
+    this.props.actions.saveCourse(this.state.course)
+      .then(() => this.redirect()); //use promise to wait for thunk
+  }
+
+  redirect() {
+    this.setState({saving:false});
+    toastr.success("Course saved");
     this.context.router.push('/courses'); //feasible with react-router context
   }
 
@@ -48,6 +58,7 @@ export class ManageCoursePage extends React.Component {
           onSave={this.saveCourse}
           course={this.state.course}
           errors={this.state.errors}
+          saving={this.state.saving}
         />
     );
   }
